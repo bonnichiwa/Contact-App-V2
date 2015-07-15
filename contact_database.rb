@@ -1,7 +1,7 @@
 require 'pg'
 # require_relative 'contact_database'
 
-class ContactDatabase
+class Contact
 
   attr_accessor :id, :lastname, :firstname, :email
 
@@ -13,7 +13,7 @@ class ContactDatabase
   end
 
   def to_s
-    "First name: [#{@firstname}] Last name: [#{@lastname}]"
+    "First name: [#{@firstname}] Last name: [#{@lastname}] Email: [#{@email}]"
   end
     
   def save
@@ -39,19 +39,19 @@ class ContactDatabase
   def self.all
     self.connection.exec('SELECT * FROM contacts;') do |results|
       results.map do |hash|
-        puts hash
+        return self.new(hash)
       end
     end
   end
 
-  def self.destroy
+  def destroy
     self.connection.exec_params("DELETE FROM contacts WHERE firstname='Andreas';")
   end
 
   def self.find_by_id(id)
     self.connection.exec_params("SELECT * FROM contacts WHERE id = '#{id}';") do |results|
       results.each do |hash|
-        puts hash
+        puts self.new(hash)
       end
     end
   end
@@ -59,7 +59,7 @@ class ContactDatabase
   def self.find_all_by_firstname(firstname)
     self.connection.exec("SELECT * FROM contacts WHERE firstname = '#{firstname}';") do |results|
       results.map do |hash|
-        puts hash
+        puts self.new(hash)
       end
     end
   end
@@ -67,15 +67,15 @@ class ContactDatabase
   def self.find_all_by_lastname(lastname)
     self.connection.exec("SELECT * FROM contacts WHERE lastname = '#{lastname}';") do |results|
       results.map do |hash|
-        puts hash
+        puts self.new(hash)
       end
     end
   end
 
-  def self.find_by_email
+  def self.find_by_email(email)
     self.connection.exec("SELECT * FROM contacts WHERE email = '#{email}';") do |results|
       results.map do |hash|
-        puts hash
+        puts self.new(hash)
       end
     end
   end

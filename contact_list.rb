@@ -10,29 +10,30 @@ class ContactList
       when 'create'
         self.create
       when 'destroy'
-        ContactDatabase.destroy
+        Contact.destroy
       when 'all'
-      ContactDatabase.all
+      Contact.all
       when 'find'
         puts "Do you want to find by id, firstname,lastname, or email?"
         find_input = gets.chomp
         if find_input == 'id'
           puts "Whats the id?"
           @id = gets.chomp.to_i
-          ContactDatabase.find_by_id(@id)
+          Contact.find_by_id(@id)
+
         elsif find_input == 'firstname'
           puts "What's the first name?"
           @firstname = gets.chomp.to_s
           puts @firstname
-          ContactDatabase.find_all_by_firstname(@firstname)
+          Contact.find_all_by_firstname(@firstname)
         elsif find_input == 'lastname'
           puts "What's the last name?"
           @lastname = gets.chomp.to_s
-          ContactDatabase.find_all_by_lastname(@lastname)
+          Contact.find_all_by_lastname(@lastname)
         elsif find_input == 'email'
           puts "Whats the email?"
           @email = gets.chomp.to_s
-          ContactDatabase.find_all_by_email(@email)
+          Contact.find_all_by_email(@email)
         end
      end
   end 
@@ -52,7 +53,7 @@ class ContactList
       "lastname"=> @lastname,
       "email"=> @email}
 
-      new_contact = ContactDatabase.new(hash)
+      new_contact = Contact.new(hash)
       new_contact.save
 
     end
