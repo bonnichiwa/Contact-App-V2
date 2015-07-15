@@ -44,8 +44,8 @@ class Contact
     end
   end
 
-  def destroy
-    self.connection.exec_params("DELETE FROM contacts WHERE firstname='Andreas';")
+  def self.destroy(firstname)
+    self.connection.exec_params("DELETE FROM contacts WHERE firstname = '#{firstname}';") 
   end
 
   def self.find_by_id(id)

@@ -10,7 +10,9 @@ class ContactList
       when 'create'
         self.create
       when 'destroy'
-        Contact.destroy
+        puts "Enter firstname to destroy!!!"
+        @firstname = gets.chomp.to_s
+        Contact.destroy(@firstname)
       when 'all'
       Contact.all
       when 'find'
